@@ -5,3 +5,10 @@ C:\Users\Marcos\source\repos\AprendendoCSharp\1-PrimeiroProjeto\obj\Debug\1-Prim
 C:\Users\Marcos\source\repos\AprendendoCSharp\1-PrimeiroProjeto\obj\Debug\1-PrimeiroProjeto.csproj.CoreCompileInputs.cache
 C:\Users\Marcos\source\repos\AprendendoCSharp\1-PrimeiroProjeto\obj\Debug\1-PrimeiroProjeto.exe
 C:\Users\Marcos\source\repos\AprendendoCSharp\1-PrimeiroProjeto\obj\Debug\1-PrimeiroProjeto.pdb
+C:\Users\Marcos\Desktop\Projects\Study\C#\AprendendoCSharp\1-PrimeiroProjeto\bin\Debug\1-PrimeiroProjeto.exe.config
+C:\Users\Marcos\Desktop\Projects\Study\C#\AprendendoCSharp\1-PrimeiroProjeto\bin\Debug\1-PrimeiroProjeto.exe
+C:\Users\Marcos\Desktop\Projects\Study\C#\AprendendoCSharp\1-PrimeiroProjeto\bin\Debug\1-PrimeiroProjeto.pdb
+C:\Users\Marcos\Desktop\Projects\Study\C#\AprendendoCSharp\1-PrimeiroProjeto\obj\Debug\1-PrimeiroProjeto.csproj.AssemblyReference.cache
+C:\Users\Marcos\Desktop\Projects\Study\C#\AprendendoCSharp\1-PrimeiroProjeto\obj\Debug\1-PrimeiroProjeto.csproj.CoreCompileInputs.cache
+C:\Users\Marcos\Desktop\Projects\Study\C#\AprendendoCSharp\1-PrimeiroProjeto\obj\Debug\1-PrimeiroProjeto.exe
+C:\Users\Marcos\Desktop\Projects\Study\C#\AprendendoCSharp\1-PrimeiroProjeto\obj\Debug\1-PrimeiroProjeto.pdb
