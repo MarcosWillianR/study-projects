@@ -1,10 +1,10 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int main() {
   
-  int a = 3;
-  int b = 2;
-  double pontos = a / (double)b;
+  int a = abs(3);
+  int b = abs(-3);
 
-  printf("%.1f", pontos);
+  printf("%d, %d\n", a, b);
 }

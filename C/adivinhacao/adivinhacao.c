@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 // tudo que começa com # é uma diretiva
 // a diretiva "define" possibilita a criação de constantes
@@ -42,13 +43,7 @@ int main() {
 
     currentTry++;
 
-    double wastedPoints = 0;
-    if (userNumber < secretNumber) {
-      wastedPoints = (secretNumber - userNumber) / (double)2;
-    } else {
-      wastedPoints = (userNumber - secretNumber) / (double)2;
-    }
-
+    double wastedPoints = abs(userNumber - secretNumber) / (double)2;
     points = points - wastedPoints;
   }
 
