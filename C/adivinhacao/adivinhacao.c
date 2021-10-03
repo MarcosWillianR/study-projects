@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 // tudo que começa com # é uma diretiva
 // a diretiva "define" possibilita a criação de constantes
@@ -10,7 +11,12 @@ int main() {
   printf("* Bem vindo ao nosso jogo de adivinhação *\n");
   printf("******************************************\n");
 
-  int secretNumber = 42;
+  int seconds = time(0);
+  srand(seconds);
+
+  int bigNum = rand();
+
+  int secretNumber = bigNum % 100;
   int userNumber;
   int currentTry = 1;
 

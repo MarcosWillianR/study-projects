@@ -1,10 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 int main() {
   
-  int a = abs(3);
-  int b = abs(-3);
+  int seconds = time(0);
+  srand(seconds);
 
-  printf("%d, %d\n", a, b);
+  int n1 = rand();
+  int n2 = n1 % 100;
+
+  printf("%d\n", n2);
 }
