@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../models/receipt.dart';
 import 'dart:convert';
+import '../models/receipt.dart';
+import '../screens/Details.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -33,7 +34,7 @@ class HomeState extends State<Home> {
             return ListView.builder(
               itemBuilder: (BuildContext context, int index) {
                 Receipt receipt = Receipt.fromJson(receipts[index]);
-                return _buildCard(receipt.titulo, receipt.foto);
+                return _buildCard(receipt);
               },
               itemCount: receipts.length,
             );
@@ -53,23 +54,29 @@ class HomeState extends State<Home> {
     );
   }
 
-  Widget _buildCard(titulo, foto) {
-    return SizedBox(
-      height: 300,
-      child: Card(
-        margin: EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                _buildCardImage(foto),
-                _buildCardGradient(),
-                _buildCardText(titulo),
-              ],
-            )
-          ]
+  Widget _buildCard(Receipt receipt) {
+    return GestureDetector(
+      onTap: () => 
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) => Details(receipt: receipt),
+      )),
+      child: SizedBox(
+        height: 300,
+        child: Card(
+          margin: EdgeInsets.all(16),
+          child: Column(
+            children: [
+              Stack(
+                children: [
+                  _buildCardImage(receipt.foto),
+                  _buildCardGradient(),
+                  _buildCardText(receipt.titulo),
+                ],
+              )
+            ]
+          )
         )
-      )
+      ),
     );
   }
 
@@ -99,7 +106,7 @@ class HomeState extends State<Home> {
     );
   }
 
-  Widget _buildCardImage(String foto) {
+  Widget _buildCardImage(foto) {
     return Image.asset(foto, fit: BoxFit.fill, height: 268,);
   }
 
