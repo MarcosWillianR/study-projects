@@ -13,6 +13,8 @@ int main() {
   int userNumber;
   int currentTry = 1;
 
+  double points = 1000;
+
   while (1) {
     printf("Tentativa %d\n", currentTry);
     printf("Qual é o seu chute? ");
@@ -39,7 +41,17 @@ int main() {
     }
 
     currentTry++;
+
+    double wastedPoints = 0;
+    if (userNumber < secretNumber) {
+      wastedPoints = (secretNumber - userNumber) / (double)2;
+    } else {
+      wastedPoints = (userNumber - secretNumber) / (double)2;
+    }
+
+    points = points - wastedPoints;
   }
 
   printf("Fim de jogo!\n");
+  printf("Total de pontos: %.1f\n", points);
 }
