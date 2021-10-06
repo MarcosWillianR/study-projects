@@ -1,14 +1,12 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
 
 int main() {
-  
-  int seconds = time(0);
-  srand(seconds);
+	int userNumber;
 
-  int n1 = rand();
-  int n2 = n1 % 100;
+	printf("Qual o numero? \n");
+	scanf("%d", &userNumber);
 
-  printf("%d\n", n2);
+	for(int currentN = 1; currentN <= 10; currentN++) {
+		printf("%dx%d=%d\n", userNumber, currentN, userNumber * currentN);
+	}
 }
