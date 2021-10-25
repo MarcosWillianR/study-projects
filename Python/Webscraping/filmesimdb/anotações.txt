@@ -1,0 +1,47 @@
+
+$ conda create -n filmesimdb250 python=3.6
+
+-> vai criar um ambiente virtual de nome "filmesimdb250"
+e utilizando a versao do python 3.6
+
+
+$ conda activate filmesimdb250
+
+-> ativar o ambiente virtual
+
+$ conda deactivate filmesimdb250
+
+-> desativar ...
+
+
+$ scrapy startproject imdb250
+
+-> criar um projeto scrapy com nome imdb250
+
+[Scrapy - Framework]
+
+$ scrapy shell
+
+-> rodar codigos em um site no terminal (treinar sem precisar rodar o codigo)
+
+  $ fetch('https://www.imdb.com/chart/top/?ref_=nv_mv_250')
+   => abrir uma conn com o site pelo spider shell
+  
+  $ response.css('.titleColumn').get()
+  => tras o codigo html apartir do seletor css (o primeiro da lista)
+  => .getall() tras todos
+  => ::text no css tras apenas o texto
+
+  $ quit()
+  => sair do scrapy shell
+
+$ scrapy crawl imdb
+
+-> roda o projeto scrapy
+  => o nome imdb precisa ser o mesmo do name dentro do projeto
+
+ => -O cria um novo arquivo do zero com as info
+ => -o apenas adiciona os novos dados ao arquivo
+
+ ex: scrapy crawl imdb -O imdb.csv
+ => pode ser qualquer extensão
