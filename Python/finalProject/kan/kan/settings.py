@@ -12,7 +12,7 @@ SPIDER_MODULES = ['kan.spiders']
 NEWSPIDER_MODULE = 'kan.spiders'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:94.0) Gecko/20100101 Firefox/94.0';
+USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36';
 
 SELENIUM_DRIVER_NAME = 'firefox'
 SELENIUM_DRIVER_EXECUTABLE_PATH = 'C:\\Users\\Marcos\\Downloads\\geckodriver.exe'
@@ -53,7 +53,6 @@ REACTOR_THREADPOOL_MAXSIZE = 20
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
-
 
 # Disable cookies (enabled by default)
 #COOKIES_ENABLED = False
