@@ -11,13 +11,13 @@ while tentativa_atual <= tentativas:
     print(f"Tentativa {tentativa_atual} de {tentativas}")
 
     chute = int(input("Digite o seu número: "))
-    maior = chute == secret_number
-    menor = chute < secret_number
+    bigger = chute == secret_number
+    less = chute < secret_number
 
-    if maior:
-        print("Parabéns, você acertou!")
+    if bigger:
+        print("Congratz, you won!")
         break
-    elif menor:
+    elif less:
         print("Você errou, o número secreto é maior")
     else:
         print("Você errou, o número secreto é menor")
