@@ -4,11 +4,11 @@ print("*********************************")
 
 secret_number = 42
 
-tentativas = 3
-tentativa_atual = 1
+tries = 3
+current_try = 1
 
-while tentativa_atual <= tentativas:
-    print(f"Tentativa {tentativa_atual} de {tentativas}")
+while current_try <= tries:
+    print(f"Tentativa {current_try} de {tries}")
 
     chute = int(input("Digite o seu número: "))
     bigger = chute == secret_number
@@ -22,6 +22,6 @@ while tentativa_atual <= tentativas:
     else:
         print("Você errou, o número secreto é menor")
 
-    tentativa_atual += 1
+    current_try += 1
 
 print("Fim de jogo")
