@@ -1,9 +1,14 @@
-import { createContext, useContext, useCallback, useEffect } from 'react';
+import { createContext, useContext, useCallback, useEffect, useState, useMemo } from 'react';
 import { ethers } from 'ethers';
 
 import { contractABI, contractAddress } from '../utils/constants';
 
-const TransactionContext = createContext({});
+interface Transaction {
+  connectWallet: () => Promise<void>;
+  connectedAccount: string;
+}
+
+const TransactionContext = createContext({} as Transaction);
 
 const { ethereum } = window as any;
 
@@ -20,24 +25,60 @@ const getEthereumContract = () => {
 }
 
 function TransactionProvider({ children }: { children: JSX.Element }) {
-  const checkIfWalletIsConnected = useCallback(async () => {
-    if (!ethereum) return alert("Please, install metamask");
+  const [connectedAccount, setConnectedAccount] = useState('');
 
+  const checkIfWalletIsConnected = useCallback(async () => {
     try {
+      if (!ethereum) return alert("Please, install metamask");
+
       const accounts = await ethereum.request({ method: 'eth_accounts' });
 
-      console.log(accounts);
+      if (accounts.length) {
+        setConnectedAccount(accounts[0]);
+
+        // getAllTransactions();
+      } else {
+        console.log('no accounts found!');
+      }
     } catch (error) {
       console.log(error);
+      throw new Error("No ethereum object.")
     }
   }, []);
+
+  const handleConnectWallet = useCallback(async () => {
+    try {
+      if (!ethereum) return alert("Please, install metamask");
+      const accounts: string[] = await ethereum.request({ method: 'eth_requestAccounts' });
+
+      console.log(accounts)
+      setConnectedAccount(accounts[0]);
+    } catch (error) {
+      console.log(error);
+      throw new Error("No ethereum object.")
+    }
+  }, []);
+
+  const handleSendTransaction = useCallback(async () => {
+    try {
+      if (!ethereum) return alert("Please, install metamask");
+    } catch (error) {
+      console.log(error);
+      throw new Error("No ethereum object.")
+    }
+  }, []);
+
+  const value = useMemo(() => ({
+    connectWallet: handleConnectWallet,
+    connectedAccount,
+  }), [handleConnectWallet, connectedAccount])
 
   useEffect(() => {
     checkIfWalletIsConnected();
   }, []);
 
   return (
-    <TransactionContext.Provider value={{}}>
+    <TransactionContext.Provider value={value}>
       {children}
     </TransactionContext.Provider>
   )
