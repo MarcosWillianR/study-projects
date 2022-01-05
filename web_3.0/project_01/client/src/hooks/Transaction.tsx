@@ -13,6 +13,7 @@ interface Transaction {
   connectWallet: () => Promise<void>;
   connectedAccount: string;
   sendTransaction: (data: TransactionData) => Promise<void>;
+  isLoading: boolean;
 }
 
 const TransactionContext = createContext({} as Transaction);
@@ -23,16 +24,13 @@ const getEthereumContract = () => {
   const provider = new ethers.providers.Web3Provider(ethereum);
   const signer = provider.getSigner();
   const transactionContract = new ethers.Contract(contractAddress, contractABI, signer);
-
-  console.log({
-    provider,
-    signer,
-    transactionContract
-  })
+  return transactionContract;
 }
 
 function TransactionProvider({ children }: { children: JSX.Element }) {
   const [connectedAccount, setConnectedAccount] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [transactionCount, setTransactionCount] = useState(localStorage.getItem('transactionCount'));
 
   const checkIfWalletIsConnected = useCallback(async () => {
     try {
@@ -69,38 +67,55 @@ function TransactionProvider({ children }: { children: JSX.Element }) {
   const handleSendTransaction = useCallback<(data: TransactionData) => Promise<void>>(async ({
     addressTo, 
     amount, 
-    keyword, 
     message,
+    keyword, 
   }) => {
     try {
       if (!ethereum) return alert("Please, install metamask");
+      if (!connectedAccount) return alert("Please, connect a wallet first");
 
       const transactionContract = getEthereumContract();
       const parsedAmount = ethers.utils.parseEther(amount);
+
+      setIsLoading(true);
 
       await ethereum.request({ 
         method: 'eth_sendTransaction', 
         params: [
           { 
             from: connectedAccount, 
-            to: addressTo, 
+            to: addressTo,
             gas: '0x5208', // 21000 GWEI
             value: parsedAmount._hex,
           }
         ] 
       })
 
+      const transactionHash = await transactionContract.addToBlockchain(addressTo, parsedAmount, message, keyword);
+      
+      await transactionHash.wait();
+
+      const transactionNum = await transactionContract.getTransactionCount();
+      setTransactionCount(transactionNum.toNumber());
     } catch (error) {
       console.log(error);
       throw new Error("No ethereum object.")
+    } finally {
+      setIsLoading(false);
     }
-  }, []);
+  }, [connectedAccount]);
 
   const value = useMemo(() => ({
     connectWallet: handleConnectWallet,
     connectedAccount,
     sendTransaction: handleSendTransaction,
-  }), [handleConnectWallet, connectedAccount, handleSendTransaction])
+    isLoading,
+  }), [
+    handleConnectWallet, 
+    connectedAccount, 
+    handleSendTransaction, 
+    isLoading
+  ])
 
   useEffect(() => {
     checkIfWalletIsConnected();

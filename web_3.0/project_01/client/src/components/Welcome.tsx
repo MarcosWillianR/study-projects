@@ -39,7 +39,7 @@ function Input({ placeholder, name, type, handleChange }: InputProps) {
 
 function Welcome() {
   const [formData, setFormData] = useState({} as FormData);
-  const { connectWallet, connectedAccount, sendTransaction } = useTransaction();
+  const { connectWallet, connectedAccount, sendTransaction, isLoading } = useTransaction();
 
   const handleSubmit = useCallback(() => {
     const { addressTo, amount, keyword, message } = formData;
@@ -130,7 +130,7 @@ function Welcome() {
 
             <div className="h-[1px] w-full bg-gray-400 my-2" />
 
-            {false ? (
+            {isLoading ? (
               <Loader />
             ) : (
               <button
