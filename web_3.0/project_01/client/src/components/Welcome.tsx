@@ -39,10 +39,15 @@ function Input({ placeholder, name, type, handleChange }: InputProps) {
 
 function Welcome() {
   const [formData, setFormData] = useState({} as FormData);
-  const { connectWallet, connectedAccount } = useTransaction();
+  const { connectWallet, connectedAccount, sendTransaction } = useTransaction();
 
   const handleSubmit = useCallback(() => {
-    console.log(formData);
+    const { addressTo, amount, keyword, message } = formData;
+    const invalidForm = !addressTo || !amount || !keyword || !message;
+
+    if (invalidForm) return;
+
+    sendTransaction({ addressTo, amount, keyword, message })
   }, [formData]);
 
   return (

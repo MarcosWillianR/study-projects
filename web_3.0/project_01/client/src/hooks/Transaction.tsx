@@ -3,9 +3,16 @@ import { ethers } from 'ethers';
 
 import { contractABI, contractAddress } from '../utils/constants';
 
+interface TransactionData {
+  addressTo: string;
+  amount: string;
+  keyword: string;
+  message: string;
+}
 interface Transaction {
   connectWallet: () => Promise<void>;
   connectedAccount: string;
+  sendTransaction: (data: TransactionData) => Promise<void>;
 }
 
 const TransactionContext = createContext({} as Transaction);
@@ -59,9 +66,30 @@ function TransactionProvider({ children }: { children: JSX.Element }) {
     }
   }, []);
 
-  const handleSendTransaction = useCallback(async () => {
+  const handleSendTransaction = useCallback<(data: TransactionData) => Promise<void>>(async ({
+    addressTo, 
+    amount, 
+    keyword, 
+    message,
+  }) => {
     try {
       if (!ethereum) return alert("Please, install metamask");
+
+      const transactionContract = getEthereumContract();
+      const parsedAmount = ethers.utils.parseEther(amount);
+
+      await ethereum.request({ 
+        method: 'eth_sendTransaction', 
+        params: [
+          { 
+            from: connectedAccount, 
+            to: addressTo, 
+            gas: '0x5208', // 21000 GWEI
+            value: parsedAmount._hex,
+          }
+        ] 
+      })
+
     } catch (error) {
       console.log(error);
       throw new Error("No ethereum object.")
@@ -71,7 +99,8 @@ function TransactionProvider({ children }: { children: JSX.Element }) {
   const value = useMemo(() => ({
     connectWallet: handleConnectWallet,
     connectedAccount,
-  }), [handleConnectWallet, connectedAccount])
+    sendTransaction: handleSendTransaction,
+  }), [handleConnectWallet, connectedAccount, handleSendTransaction])
 
   useEffect(() => {
     checkIfWalletIsConnected();
