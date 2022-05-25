@@ -1,8 +1,10 @@
+import random
+
 print("*********************************")
 print("Bem vindo ao jogo de Adivinhação!")
 print("*********************************")
 
-secret_number = 42
+secret_number = round(random.random() * 100)
 tries = 3
 
 for current_try in range(1, tries + 1):
