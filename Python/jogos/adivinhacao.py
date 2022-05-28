@@ -57,3 +57,7 @@ def play():
         points = points - abs(secret_number - chute)
 
     print("Fim de jogo")
+
+
+if __name__ == "__main__":
+    play()
