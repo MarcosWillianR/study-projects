@@ -1,0 +1,8 @@
+  05/06/2022 03:17:38: iniciando composição “project_01”.
+
+  Saída para: C:\Users\Marcos\Desktop\Projects\Study\AfterEffects\project_01\project_01.mov    05/06/2022 03:17:44: composição concluída “project_01”.
+
+
+  Tempo total decorrido: 6 segundos
+Log fechado em 05/06/2022 às 03:17:44
+
