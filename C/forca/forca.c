@@ -1,6 +1,22 @@
 #include <stdio.h>
 #include <string.h>
 
+void abertura() {
+  printf("*************************************\n");
+  printf("*    Bem-vindo ao jogo da forca!    *\n");
+  printf("*************************************\n\n");
+}
+
+void chuta() {
+  printf("\n");
+  char chute;
+  printf("Qual letra?");
+  scanf(" %c", &chute); // precisa do espaço para não ler o enter
+  
+  chutes[tentativas] = chute;
+  tentativas++;
+}
+
 int main() {
   char palavrasecreta[20];
   sprintf(palavrasecreta, "MELANCIA");
@@ -10,6 +26,8 @@ int main() {
 
   char chutes[26];
   int tentativas = 0;
+
+  abertura();
 
   do {
     for (int i = 0; strlen(palavrasecreta) > i; i++) {
@@ -26,11 +44,7 @@ int main() {
         printf("_ ");
       } 
     }
-    printf("\n");
-    char chute;
-    printf("Qual letra?");
-    scanf(" %c", &chute); // precisa do espaço para não ler o enter
-    chutes[tentativas] = chute;
-    tentativas++;
+    
+    chuta()
   } while (!acertou && !enforcou);
 }
