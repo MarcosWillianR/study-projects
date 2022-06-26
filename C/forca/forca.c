@@ -7,14 +7,12 @@ void abertura() {
   printf("*************************************\n\n");
 }
 
-void chuta(char chutes, int tentativas) {
+void chuta(char chutes[26], int tentativas) {
   printf("\n");
   char chute;
-  printf("Qual letra?");
   scanf(" %c", &chute); // precisa do espaço para não ler o enter
   
   chutes[tentativas] = chute;
-  tentativas++;
 }
 
 int main() {
@@ -27,7 +25,7 @@ int main() {
   char chutes[26];
   int tentativas = 0;
 
-  abertura(chutes, tentativas);
+  abertura();
 
   do {
     for (int i = 0; strlen(palavrasecreta) > i; i++) {
@@ -45,6 +43,7 @@ int main() {
       } 
     }
     
-    chuta()
+    chuta(chutes, tentativas);
+    tentativas++;
   } while (!acertou && !enforcou);
 }
