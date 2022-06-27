@@ -1,4 +1,5 @@
-// assinatura de funções
+// assinatura de funções e variáveis globais
+#define TAMANHO_PALAVRA 20  
 
 void abertura();
 void chuta();
@@ -9,3 +10,4 @@ void adicionapalavra();
 int jachutou(char letra);
 int acertou();
 int enforcou();
+int chuteserrados();
