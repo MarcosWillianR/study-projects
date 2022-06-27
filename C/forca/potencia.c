@@ -1,11 +1,10 @@
 #include <stdio.h>
 
 void potencia(int* result, int a, int b) {
-  int total = 1;
+  *result = 1;
   for (int i = 0; i < b; i++) {
-    total *= a;
+    *result = *result * a;
   }
-  (*result) = total;
 }
 
 int main() {
