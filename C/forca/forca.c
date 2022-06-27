@@ -1,22 +1,26 @@
 #include <stdio.h>
 #include <string.h>
 
+// variáveis globais
+char palavrasecreta[20];
+char chutes[26]; // por natureza o array é um ponteiro que aponta para o primeiro elemento do array
+int tentativas = 0;
+
 void abertura() {
   printf("*************************************\n");
   printf("*    Bem-vindo ao jogo da forca!    *\n");
   printf("*************************************\n\n");
 }
 
-void chuta(char chutes[26], int* tentativas) {
+void chuta() {
   printf("\n");
   char chute;
   scanf(" %c", &chute); // precisa do espaço para não ler o enter
-  
-  chutes[(*tentativas)] = chute;
-  (*tentativas)++;
+  chutes[tentativas] = chute;
+  tentativas++;
 }
 
-int jachutou(char letra, char chutes[26], int tentativas) {
+int jachutou(char letra) {
   int achou = 0;
   for (int j = 0; j < tentativas; j++) {
     if (chutes[j] == letra) {
@@ -27,9 +31,9 @@ int jachutou(char letra, char chutes[26], int tentativas) {
   return achou;
 }
 
-void desenhaforca(char palavrasecreta[20], int tentativas, char chutes[26]) {
+void desenhaforca() {
   for (int i = 0; strlen(palavrasecreta) > i; i++) {
-    int achou = jachutou(palavrasecreta[i], chutes, tentativas);
+    int achou = jachutou(palavrasecreta[i]);
     if (achou) {
       printf("%c ", palavrasecreta[i]);
     } else {
@@ -38,21 +42,17 @@ void desenhaforca(char palavrasecreta[20], int tentativas, char chutes[26]) {
   }
 }
 
-void escolhepalavra(char palavrasecreta[20]) {
+void escolhepalavra() {
   sprintf(palavrasecreta, "MELANCIA");
 }
 
 int main() {
-  char palavrasecreta[20];
   int acertou = 0;
   int enforcou = 0;
-  char chutes[26]; // por natureza o array é um ponteiro que aponta para o primeiro elemento do array
-  int tentativas = 0;
-
   abertura();
-  escolhepalavra(palavrasecreta);
+  escolhepalavra();
   do {
-    desenhaforca(palavrasecreta, tentativas, chutes);
-    chuta(chutes, &tentativas);
+    desenhaforca();
+    chuta();
   } while (!acertou && !enforcou);
 }
