@@ -7,12 +7,24 @@ void abertura() {
   printf("*************************************\n\n");
 }
 
-void chuta(char chutes[26], int tentativas) {
+void chuta(char chutes[26], int* tentativas) {
   printf("\n");
   char chute;
   scanf(" %c", &chute); // precisa do espaço para não ler o enter
   
-  chutes[tentativas] = chute;
+  chutes[(*tentativas)] = chute;
+  (*tentativas)++;
+}
+
+int jachutou(char letra, char chutes[26], int tentativas) {
+  int achou = 0;
+  for (int j = 0; j < tentativas; j++) {
+    if (chutes[j] == letra) {
+      achou = 1;
+      break;
+    }
+  }
+  return achou;
 }
 
 int main() {
@@ -22,20 +34,14 @@ int main() {
   int acertou = 0;
   int enforcou = 0;
 
-  char chutes[26];
+  char chutes[26]; // por natureza o array é um ponteiro que aponta para o primeiro elemento do array
   int tentativas = 0;
 
   abertura();
 
   do {
     for (int i = 0; strlen(palavrasecreta) > i; i++) {
-      int achou = 0;
-      for (int j = 0; j < tentativas; j++) {
-        if (chutes[j] == palavrasecreta[i]) {
-          achou = 1;
-          break;
-        }
-      }
+        int achou = jachutou(palavrasecreta[i], chutes, tentativas);
       if (achou) {
         printf("%c ", palavrasecreta[i]);
       } else {
@@ -43,7 +49,6 @@ int main() {
       } 
     }
     
-    chuta(chutes, tentativas);
-    tentativas++;
+    chuta(chutes, &tentativas);
   } while (!acertou && !enforcou);
 }
