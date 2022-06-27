@@ -9,7 +9,17 @@ void soma(int inteiros[10]) {
   // printf("%d\n", soma);
 }
 
+void soma_ponteiros(int* num, int a, int b) {
+  (*num) = a + b;
+}
+
 int main() {
-  int inteiros[10];
-  soma(inteiros);
+  // int inteiros[10];
+  // soma(inteiros);
+
+  int num = 0;
+
+  soma_ponteiros(&num, 5, 10);
+
+  printf("Soma Ponteiros: %d\n", num);
 }
