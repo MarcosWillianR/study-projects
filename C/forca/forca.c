@@ -4,7 +4,7 @@
 // variáveis globais
 char palavrasecreta[20];
 char chutes[26]; // por natureza o array é um ponteiro que aponta para o primeiro elemento do array
-int tentativas = 0;
+int chutesdados = 0;
 
 void abertura() {
   printf("*************************************\n");
@@ -16,13 +16,13 @@ void chuta() {
   printf("\n");
   char chute;
   scanf(" %c", &chute); // precisa do espaço para não ler o enter
-  chutes[tentativas] = chute;
-  tentativas++;
+  chutes[chutesdados] = chute;
+  chutesdados++;
 }
 
 int jachutou(char letra) {
   int achou = 0;
-  for (int j = 0; j < tentativas; j++) {
+  for (int j = 0; j < chutesdados; j++) {
     if (chutes[j] == letra) {
       achou = 1;
       break;
@@ -46,9 +46,18 @@ void escolhepalavra() {
   sprintf(palavrasecreta, "MELANCIA");
 }
 
+int acertou() {
+  for(int i = 0; strlen(palavrasecreta) > i; i++) {
+    if (!jachutou(palavrasecreta[i])) {
+      return 0;
+    }
+  }
+  return 1;
+}
+
 int enforcou() {
   int erros = 0;
-  for (int i = 0; i < tentativas; i++) {
+  for (int i = 0; i < chutesdados; i++) {
     int existe = 0;
     for (int j = 0; strlen(palavrasecreta) > j; j++) {
       if (chutes[i] == palavrasecreta[j]) {
@@ -62,11 +71,10 @@ int enforcou() {
 }
 
 int main() {
-  int acertou = 0;
   abertura();
   escolhepalavra();
   do {
     desenhaforca();
     chuta();
-  } while (!acertou && !enforcou());
+  } while (!acertou() && !enforcou());
 }
