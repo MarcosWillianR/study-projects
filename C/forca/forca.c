@@ -48,24 +48,15 @@ void escolhepalavra() {
 
 int acertou() {
   for(int i = 0; strlen(palavrasecreta) > i; i++) {
-    if (!jachutou(palavrasecreta[i])) {
-      return 0;
-    }
+    if (!jachutou(palavrasecreta[i])) return 0;
   }
   return 1;
 }
 
 int enforcou() {
   int erros = 0;
-  for (int i = 0; i < chutesdados; i++) {
-    int existe = 0;
-    for (int j = 0; strlen(palavrasecreta) > j; j++) {
-      if (chutes[i] == palavrasecreta[j]) {
-        existe = 1;
-        break;
-      }
-    }
-    if (!existe) erros++;
+  for (int i = 0; chutesdados > i; i++) {
+    if (!jachutou(palavrasecreta[i])) erros++;
   }
   return erros >= 5;
 }
