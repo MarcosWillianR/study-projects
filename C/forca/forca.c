@@ -27,28 +27,32 @@ int jachutou(char letra, char chutes[26], int tentativas) {
   return achou;
 }
 
+void desenhaforca(char palavrasecreta[20], int tentativas, char chutes[26]) {
+  for (int i = 0; strlen(palavrasecreta) > i; i++) {
+    int achou = jachutou(palavrasecreta[i], chutes, tentativas);
+    if (achou) {
+      printf("%c ", palavrasecreta[i]);
+    } else {
+      printf("_ ");
+    }
+  }
+}
+
+void escolhepalavra(char palavrasecreta[20]) {
+  sprintf(palavrasecreta, "MELANCIA");
+}
+
 int main() {
   char palavrasecreta[20];
-  sprintf(palavrasecreta, "MELANCIA");
-  
   int acertou = 0;
   int enforcou = 0;
-
   char chutes[26]; // por natureza o array é um ponteiro que aponta para o primeiro elemento do array
   int tentativas = 0;
 
   abertura();
-
+  escolhepalavra(palavrasecreta);
   do {
-    for (int i = 0; strlen(palavrasecreta) > i; i++) {
-        int achou = jachutou(palavrasecreta[i], chutes, tentativas);
-      if (achou) {
-        printf("%c ", palavrasecreta[i]);
-      } else {
-        printf("_ ");
-      } 
-    }
-    
+    desenhaforca(palavrasecreta, tentativas, chutes);
     chuta(chutes, &tentativas);
   } while (!acertou && !enforcou);
 }
