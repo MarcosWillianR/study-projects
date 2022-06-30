@@ -12,7 +12,12 @@ def play():
     acertou = False
 
     while (not enforcou and not acertou):
-        print("jogando...")
+        chute = input("Qual letra? ")
+        chute = chute.strip().lower()
+
+        for (i, letra) in enumerate(palavra_secreta):
+            if (chute == letra.lower()):
+                print(f"Encontrei a letra {chute} na posição {i}")
 
 
 if __name__ == "__main__":
