@@ -17,7 +17,7 @@ def play():
 
         for (i, letra) in enumerate(palavra_secreta):
             if (chute == letra.lower()):
-                print(f"Encontrei a letra {chute} na posição {i}")
+                print(f"Encontrei a letra {chute} - {i}")
 
 
 if __name__ == "__main__":
