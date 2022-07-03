@@ -1,0 +1,8 @@
+banana
+bergamota
+laranja
+fruta
+verdura
+carro
+moto
+avião
