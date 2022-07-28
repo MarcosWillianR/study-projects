@@ -43,9 +43,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       q.Update(
         q.Ref(q.Collection('users'), user.ref.id),
         {
-          data: {
-            stripe_customer_id: stripeCustomer.id,
-          }
+          data: { stripe_customer_id: stripeCustomer.id }
         }
       )
     );
