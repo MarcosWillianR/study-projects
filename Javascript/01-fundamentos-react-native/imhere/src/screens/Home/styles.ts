@@ -32,5 +32,13 @@ export const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 32,
     fontWeight: 'bold',
-  }
+  },
+  emptyList: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#FFF',
+    fontSize: 28,
+    fontWeight: 'bold'
+  },
 });
