@@ -32,10 +32,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(405).end('Method not allowed');
   }
 
-
   const buf = await buffer(req);
   const secret = req.headers['stripe-signature'];
-
   let event: Stripe.Event;
   try {
     event = stripe.webhooks.constructEvent(buf.toString(), secret, process.env.STRIPE_WEBHOOK_SECRET);
