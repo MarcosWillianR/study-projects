@@ -29,7 +29,7 @@ const relevantEvents = new Set([
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
-    return res.status(405).end('Method not allowed');
+    return res.status(405).send('Method not allowed');
   }
 
   const buf = await buffer(req);
