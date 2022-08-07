@@ -42,9 +42,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const { type } = event;
-  if (!relevantEvents.has(type)) {
-    return res.json({ received: true });
-  }
+  if (!relevantEvents.has(type)) return res.json({ received: true });
 
   try {
     switch (type) {
