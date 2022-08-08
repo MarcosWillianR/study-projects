@@ -6,6 +6,7 @@ import { PrismicPreview } from '@prismicio/next'
 import { linkResolver, repositoryName } from '../services/prismicio'
 
 import { Header } from '../components/Header';
+
 import '../styles/global.scss';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
