@@ -6,6 +6,10 @@ import GoogleLogin from 'react-google-login';
 import { AiFillHome, AiOutlineMenu } from 'react-icons/ai';
 import { ImCancelCircle } from 'react-icons/im';
 
+import { Discover } from './Discover';
+import { Footer } from './Footer';
+import { SuggestedAccounts } from './SuggestedAccounts';
+
 export function Sidebar() {
   const [showSidebar, setShowSidebar] = useState(true);
 
@@ -48,7 +52,7 @@ export function Sidebar() {
                     <button
                       onClick={renderProps.onClick}
                       disabled={renderProps.disabled}
-                      className="cursor-pointer bg-white text-lg text-[#f51997] border-[1px] border-[#F51997] font-semibold px-6 py-3 rounded-md outline-none w-full mt-3 hover:text-whitehover:bg-[#F51997]"
+                      className="cursor-pointer bg-white text-lg text-[#f51997] border-[1px] border-[#F51997] font-semibold px-6 py-3 rounded-md outline-none w-full mt-3 hover:text-white hover:bg-[#F51997]"
                     >
                       Log in
                     </button>
@@ -61,9 +65,9 @@ export function Sidebar() {
             </div>
           )}
 
-          {/* <Discover />
+          <Discover />
           <SuggestedAccounts />
-          <Footer /> */}
+          <Footer />
         </div>
       )}
     </div>
