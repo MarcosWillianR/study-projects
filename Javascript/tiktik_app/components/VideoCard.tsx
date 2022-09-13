@@ -28,6 +28,12 @@ export function VideoCard({ post }: IProps) {
     }
   }, [isPlaying]);
 
+  useEffect(() => {
+    if (videoRef?.current) {
+      videoRef.current.muted = isVideoMuted;
+    }
+  }, [isVideoMuted]);
+
   return (
     <div className="flex flex-col border-b-2 border-gray-200 pb-6">
       <div>
