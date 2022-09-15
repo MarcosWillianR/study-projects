@@ -6,9 +6,6 @@ import { client } from '../../services/client';
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'PUT') {
     const { userId, postId, like } = req.body;
-
-    console.log({ userId, postId, like })
-
     await like ? client
       .patch(postId)
       .setIfMissing({ likes: [] })
