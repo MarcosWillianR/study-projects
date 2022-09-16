@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, FormEvent } from 'react';
+import { Dispatch, SetStateAction, FormEvent, useEffect } from 'react';
 import Image from "next/image";
 import Link from "next/link";
 import { GoVerified } from "react-icons/go";
@@ -23,7 +23,11 @@ interface IComment {
 }
 
 export function Comments({ isPostingComment, comments, handleSetComment, handleAddComment, comment }: IProps) {
-  const { userProfile, fetchAllUsers, allUsers } = useAuthStore();
+  const { userProfile, allUsers, fetchAllUsers } = useAuthStore();
+
+  useEffect(() => {
+    fetchAllUsers();
+  }, [fetchAllUsers]);
 
   return (
     <div className="border-t-2 border-gray-200 pt-4 px-10 bg-[#f8F8F8] border-b-2 lg:pb-0 pb-[100px]">
@@ -36,7 +40,7 @@ export function Comments({ isPostingComment, comments, handleSetComment, handleA
                   return (
                     <div className="p-2 items-center" key={idx}>
                       <Link href={`/profile/${user._id}`}>
-                        <div className="flex items-start gap-3">
+                        <div className="flex items-start gap-3 cursor-pointer">
                           <div className="w-8 h-8">
                             <Image
                               src={user.image}

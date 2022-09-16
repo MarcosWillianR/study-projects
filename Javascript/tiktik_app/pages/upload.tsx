@@ -16,7 +16,7 @@ const Upload = () => {
   const [videoAsset, setVideoAsset] = useState<SanityAssetDocument | undefined>();
   const [wrongFileType, setWrongFileType] = useState(false);
   const [caption, setCaption] = useState('');
-  const [category, setCategory] = useState(topics[0].name);
+  const [topic, setTopic] = useState(topics[0].name);
   const [savingPost, setSavingPost] = useState(false);
 
   const { userProfile }: { userProfile: any } = useAuthStore();
@@ -27,6 +27,8 @@ const Upload = () => {
     const fileTypes = ['video/mp4', 'video/webm', 'video/ogg'];
 
     if (fileTypes.includes(selectedFile.type)) {
+      setWrongFileType(false);
+      setIsLoading(true);
       client.assets.upload('file', selectedFile, {
         contentType: selectedFile.type,
         filename: selectedFile.name
@@ -42,31 +44,36 @@ const Upload = () => {
   }, []);
 
   const handlePost = useCallback(async () => {
-    if (caption && videoAsset?._id && category) {
+    if (caption && videoAsset?._id && topic) {
       setSavingPost(true);
-
-      const document = {
+      const doc = {
         _type: 'post',
         caption,
         video: {
           _type: 'file',
           asset: {
             _type: 'reference',
-            _ref: videoAsset?._id
-          }
+            _ref: videoAsset?._id,
+          },
         },
         userId: userProfile?._id,
         postedBy: {
-          type: 'postedBy',
-          _ref: userProfile?._id
+          _type: 'postedBy',
+          _ref: userProfile?._id,
         },
-        topic: category
+        topic,
       }
-
-      await axios.post(`${BASE_URL}/api/post`, document);
+      await axios.post(`${BASE_URL}/api/post`, doc);
       router.push('/');
     }
-  }, [caption, category, videoAsset?._id, userProfile, router]);
+  }, [caption, topic, videoAsset?._id, userProfile, router]);
+
+  const handleDiscard = useCallback(() => {
+    setSavingPost(false);
+    setVideoAsset(undefined);
+    setCaption('');
+    setTopic('');
+  }, []);
 
   return (
     <div className="flex w-full h-full absolute left-0 top-[60px] mb-10 pt-10 lg:pt-20 bg-[#F8F8F8] justify-center">
@@ -142,7 +149,7 @@ const Upload = () => {
           />
           <label className="text-md font-medium">Choose a Category</label>
           <select
-            onChange={(e) => setCategory(e.target.value)}
+            onChange={(e) => setTopic(e.target.value)}
             className="outline-none border-2 border-gray-200 text-md capitalize lg:p-4 p-2 rounded cursor-pointer"
           >
             {topics.map(topic => (
@@ -157,18 +164,19 @@ const Upload = () => {
           </select>
           <div className="flex gap-6 mt-10">
             <button
-              onClick={() => { }}
-              type="button"
-              className="border-gray-300 border-2 text-md font-medium p-2 rounded w-28 lg:w-44 outline-none"
+              onClick={handleDiscard}
+              type='button'
+              className='border-gray-300 border-2 text-md font-medium p-2 rounded w-28 lg:w-44 outline-none'
             >
               Discard
             </button>
             <button
+              disabled={videoAsset?.url ? false : true}
               onClick={handlePost}
-              type="button"
-              className="bg-[#F51997] text-white text-md font-medium p-2 rounded w-28 lg:w-44 outline-none"
+              type='button'
+              className='bg-[#F51997] text-white text-md font-medium p-2 rounded w-28 lg:w-44 outline-none'
             >
-              Post
+              {savingPost ? 'Posting...' : 'Post'}
             </button>
           </div>
         </div>
