@@ -1,10 +1,16 @@
-import { Header } from "../../components/Header";
-import { Summary } from "../../components/Summary";
-import { SearchForm } from "./components/SearchForm";
+import { useContext } from 'react'
+import { Header } from '../../components/Header'
+import { Summary } from '../../components/Summary'
+import { SearchForm } from './components/SearchForm'
 
-import { Container, Table, PriceHighlight } from "./styles";
+import { TransactionsContext } from '../../contexts/TransactionsContext'
+import { priceFormatter, dateFormatter } from '../../utils/formatter'
+
+import { Container, Table, PriceHighlight } from './styles'
 
 export function Transactions() {
+  const { transactions } = useContext(TransactionsContext)
+
   return (
     <div>
       <Header />
@@ -15,26 +21,21 @@ export function Transactions() {
 
         <Table>
           <tbody>
-            <tr>
-              <td width="50%">Desenvolvimento de site</td>
-              <td>
-                <PriceHighlight variant="income">
-                  R$ 12.000,00
-                </PriceHighlight>
-              </td>
-              <td>Venda</td>
-              <td>13/04/2022</td>
-            </tr>
-            <tr>
-              <td width="50%">Hamburguer</td>
-              <td>
-                <PriceHighlight variant="outcome">
-                  - R$ 59,00
-                </PriceHighlight>
-              </td>
-              <td>Alimentação</td>
-              <td>10/04/2022</td>
-            </tr>
+            {transactions.map(
+              ({ category, createdAt, description, id, price, type }) => (
+                <tr key={id}>
+                  <td width="50%">{description}</td>
+                  <td>
+                    <PriceHighlight variant={type}>
+                      {type === 'outcome' && '- '}
+                      {priceFormatter.format(price)}
+                    </PriceHighlight>
+                  </td>
+                  <td>{category}</td>
+                  <td>{dateFormatter.format(new Date(createdAt))}</td>
+                </tr>
+              ),
+            )}
           </tbody>
         </Table>
       </Container>
